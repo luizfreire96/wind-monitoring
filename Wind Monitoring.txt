@@ -1,0 +1,18 @@
+# Wind Monitoring
+
+Forecasting wind speed have a lot of benefits, like manage the power transmission and distribution grid, protect the equipaments from over production, 
+doing th maintenance in a good moment, etc. 
+With that in mind, this project was developed to create a interface to expose the predictions data based in previous data.<br>
+To develop this project, an docker image was created for each statistical model used and another to expose the data in a dashboard.
+To orchastarte the containers, docker compose was used. 
+The database was created locally to store the models parameters, wind speed data and turbine locations.
+A test database filled with 10% of nan's in random locations was created to test the model used to fill the nan's.<br><br>
+
+## Kriging
+
+Also named gaussian process regression, kriging is a method to make some predictions in space. This method was used to predict missing data.
+The method uses a covariance function to describe how the values are distributed. Kriging method assumes that the values in a field are centered
+in a mean value. The model used in this project is the ordinary krigin, that assumes a constant mean value. All data from a turbine was deleted
+to test the method. 
+For that case, **the score of the method is almost 0.99**, and a graph with the real values and predicted values is shown below (turbine #6):
+<br>

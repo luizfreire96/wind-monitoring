@@ -1,0 +1,209 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kriging
+spec:
+  template:
+    metadata:
+      labels: 
+        app: kriging
+    spec: 
+      containers:
+      - name: kriging
+        image: lafreire96/kriging:v0
+        env:
+
+          - name: INSTANCE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: INSTANCE_HOST
+
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_USER
+
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_PASS
+
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_NAME
+
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_PORT
+      restartPolicy: Never
+  backoffLimit: 3
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: armapredict
+spec:
+  template:
+    metadata:
+      labels: 
+        app: armapredict
+    spec: 
+      containers:
+      - name: armapredict
+        image: lafreire96/armapredict:v0
+        env:
+
+          - name: INSTANCE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: INSTANCE_HOST
+
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_USER
+
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_PASS
+
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_NAME
+
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_PORT
+      restartPolicy: Never
+  backoffLimit: 3
+
+---
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: weibullfit
+spec:
+  template:
+    metadata:
+      labels: 
+        app: weibullfit
+    spec: 
+      containers:
+      - name: weibullfit
+        image: lafreire96/weibullfit:v0
+        env:
+
+          - name: INSTANCE_HOST
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: INSTANCE_HOST
+
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_USER
+
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_PASS
+
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_NAME
+
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: winddb
+                key: DB_PORT
+      restartPolicy: Never
+  backoffLimit: 3
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: windmonitor
+spec:
+  selector:
+    matchLabels:
+      app: windmonitor 
+  template:
+    metadata:
+      labels: 
+        app: windmonitor
+    spec: 
+      containers:
+      - name: windmonitor
+        image: lafreire96/windmonitor:v0
+        ports: 
+        - containerPort: 5432
+        env:
+        - name: INSTANCE_HOST
+          valueFrom:
+            secretKeyRef:
+              name: winddb
+              key: INSTANCE_HOST
+
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: winddb
+              key: DB_USER
+
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: winddb
+              key: DB_PASS
+
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: winddb
+              key: DB_NAME
+
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: winddb
+              key: DB_PORT
+  
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: windmonitor
+spec:
+  selector:
+    app: windmonitor 
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer
