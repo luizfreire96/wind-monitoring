@@ -31,7 +31,7 @@ A correlation with the target variable with itself lagged can show the best orde
 This is called autocorrelation. If the autocorrelation is high even with high number lags, the best model will be **probably** high.
 But for that case, the variable have significant autocorrelation up to 3 lags. We can see the autocorrelation for turbine #6 for example:<br>
 
-![image](https://github.com/luizfreire96/windMonitoring/blob/main/krigingBuild/nanfill.png)
+![image](armaBuild/partial-autocorrelation.png)
 
 <br><br>
 ## Long-term Approximation (Weibull curve)
@@ -41,11 +41,11 @@ but the distribution is skewd. So, the median of a popular probability density f
 to get rid of the skew problem. Since the data is limited, it's needed to group bins to have a significant amount of ocurrencies to test it.
 The statistical test used to verify if the curve fits good is chi squared test. In the end, the weibull distribution looks like this:
 <br>
-![image](https://github.com/luizfreire96/windMonitoring/blob/main/krigingBuild/nanfill.png)
+![image](weibullBuild/weibulpdf.png)
 
 ## Conclusion
 
 A lot can be done to turn the project more interactive, with more metrics to show and aesthetic. So, this is a initial project.
 With all that data and models stored, a dashboard is created to expose the important metrics to operation of wind energy sites.<br>
 
-![image](https://github.com/luizfreire96/windMonitoring/blob/main/krigingBuild/nanfill.png)
+![image](app/dashboard.png)
