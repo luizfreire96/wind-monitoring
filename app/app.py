@@ -1,7 +1,5 @@
 from flask import Flask
 from dash_application import create_dash_application
-from dash_application import plot_prediction
-from dash_application import power
 import os
 
 app = Flask(__name__)

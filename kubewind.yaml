@@ -55,7 +55,7 @@ kind: CronJob
 metadata:
   name: armapredict
 spec:
-  schedule: '0 * * * *'
+  schedule: '0 0 1 * *'
   jobTemplate:
     spec:
       template:
@@ -107,7 +107,7 @@ kind: CronJob
 metadata:
   name: weibullfit
 spec:
-  schedule: '0 * * * *'
+  schedule: '0 0 1 * *'
   jobTemplate:
     spec:
       template:
