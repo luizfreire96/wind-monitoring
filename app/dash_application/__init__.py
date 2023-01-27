@@ -24,11 +24,10 @@ def power(my_list):
 
 def plot_prediction(turbine):
 
-    weibull_resid = df['turbine {}'.format(turbine)] - dfw.iloc[turbine]
+    weibull_resid = df['turbine {}'.format(turbine)] - dfw.iloc[turbine - 1]['median']
 
     model = ARIMA(df['turbine_{}'.format(turbine)], order=json.loads(dfts['model_order'].iloc[turbine - 1]))
     model = model.fit()
-
     prediction = model.forecast(steps=24)
     time_index = [df['datetime'].iloc[-1] + timedelta(hours=i) for i in range(1, 25)]
 

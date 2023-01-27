@@ -23,16 +23,11 @@ params = []
 for i in models:
     a = i.order
     orders.append(json.dumps(a))
-    a = i.params()
-    a = dict(zip(a.keys(), a.values))
-    a['const'] = a['intercept']
-    del a['intercept']
-    params.append(json.dumps(a))
 
 
 for i in range(1, 11):
     with engine.connect() as con:
-        query = "insert into armaparameters values ('{}', '{}', '{}', {})"
-        con.execute(query.format(time, orders[i-1], params[i-1], i))
+        query = "insert into armaparameters values ('{}', '{}', '{}')"
+        con.execute(query.format(time, orders[i-1], i))
 
 print('ok')

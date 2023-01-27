@@ -47,7 +47,7 @@ columns = ', '.join(list(sensor_data.keys()))
 values = list(sensor_data.values())
 values = ', '.join([str(i) for i in values])
 
-query = "INSERT INTO windSpeed ({}, datetime) VALUES ({}, '{}')".format(columns, values, time)
+query = "INSERT INTO windspeed ({}, datetime) VALUES ({}, '{}')".format(columns, values, time)
 
 engine = connect_tcp_socket()
 with engine.connect() as con:
